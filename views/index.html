@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta charset="utf-8">
+	  <meta name="description" content="">
+	  <meta name="author" content="">
+    <link rel="shortcut icon" href="img/logo.png" />
+    <link rel="stylesheet" href="css/w3.css" />
+    <title>Besu Gui</title>
+		<style>
+
+			@keyframes circle {
+			  0% {
+			    transform: rotate(0);
+			  }
+			  100% {
+			    transform: rotate(360deg);
+			  }
+			}
+		</style>
+  </head>
+  <body style= "background-color:black;">
+
+		<div class="container">
+				<div class="row" style="
+				padding: 15px;
+				width: 100%;
+				">
+
+					<div id="messages" class="text-wrap" style="
+					color:#ffffff;
+					background-color:#1d1965;
+					max-height:70vh;
+					overflow-y: auto;
+					white-space: pre-wrap;
+					padding:15px;
+					border-radius: 15px;">
+				</div>
+
+		</div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+const messages = document.querySelector("#messages");
+
+function API(api,data,output){
+	fetch(`https://${location.host}/api`, {
+		method: 'POST',
+		body: JSON.stringify({
+			'api': api,
+			'data': data,
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+	.then(response=>response.text())
+	.then(d=>{
+		output.textContent = d;
+	})
+	.catch(e=>console.log(e));
+}
+
+API('eth_blockNumber','',messages);
+
+
+
+</script>
